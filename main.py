@@ -1,13 +1,48 @@
 import discord
-import requests
-from bs4 import BeautifulSoup as bs4
-import datetime
+from discord.ext import commands
+from datetime import datetime as dt
 
-today = datetime.datetime.now()
-date = today.strftime('%Y%m%d')[2:]
-xml = "https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7531047&KEY=3fb2d090f9c746e694d7a9097c466af2&MLSV_YMD="+date
+import mealfind as mf
 
-xml = requests.get(req_url)
-soup = bs4(xml.text,'xml.parser')
 
-food = soup.find('DDISH_NM')
+app = commands.Bot(command_prefix='!')
+
+@app.event
+async def on_ready():
+    print(app.user.name)
+    await app.change_presence(status=discord.Status.online, activity=None)
+
+@app.command()
+async def meal(ctx):
+    t_m, t_d= dt.today().strftime("%m"), dt.today().strftime("%d")
+    
+    meal_data = mf.mealfind.find(0)
+    
+    embed=discord.Embed(title="~ 중 식 ~", description=t_m+ "월 "+t_d+" 일", color=0xff7024)
+    if(meal_data[0][0]=="None"):
+        embed.add_field(name = "없음", value = "급식 혹은 급식 정보가 없음",inline=False)
+    else:
+        for i,j in meal_data[0]:
+            if j=="":
+                j="없음"
+            embed.add_field(name = i, value= j, inline=False)
+    await ctx.send(embed=embed)
+        
+
+    embed=discord.Embed(title="~ 석 식 ~", description=t_m+ "월 "+t_d+" 일", color=0xff8888)
+    if(meal_data[1][0]=="None"):
+        embed.add_field(name = "없음", value = "급식 혹은 급식 정보가 없음",inline=False)
+    else:
+        for i,j in meal_data[1]:
+            if j=="":
+                j="없음"
+            embed.add_field(name = i, value = j, inline=False)
+    await ctx.send(embed=embed)
+
+@app.command()
+async def lotto(ctx):
+    await ctx.send("꽝")
+
+
+
+app.run('OTU5ODE2NjgzMjY1MDczMjIz.YkhY8Q.h2VpLsm87NMRZnUVDlE-m0xek5k')
