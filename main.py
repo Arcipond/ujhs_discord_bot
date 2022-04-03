@@ -3,6 +3,7 @@ from discord.ext import commands
 from datetime import datetime as dt
 
 import mealfind as mf
+import config
 
 
 app = commands.Bot(command_prefix='!')
@@ -45,4 +46,4 @@ async def lotto(ctx):
 
 
 
-app.run('OTU5ODE2NjgzMjY1MDczMjIz.YkhY8Q.h2VpLsm87NMRZnUVDlE-m0xek5k')
+app.run(config.discord_key)
