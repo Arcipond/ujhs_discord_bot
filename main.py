@@ -20,7 +20,7 @@ async def meal(ctx):
     meal_data = mf.mealfind.find(0)
     
     embed=discord.Embed(title="~ 중 식 ~", description=t_m+ "월 "+t_d+" 일", color=0xff7024)
-    if(meal_data[0][0]=="None"):
+    if(meal_data[0]=="None"):
         embed.add_field(name = "없음", value = "급식 혹은 급식 정보가 없음",inline=False)
     else:
         for i,j in meal_data[0]:
@@ -31,7 +31,7 @@ async def meal(ctx):
         
 
     embed=discord.Embed(title="~ 석 식 ~", description=t_m+ "월 "+t_d+" 일", color=0xff8888)
-    if(meal_data[1][0]=="None"):
+    if(meal_data[1]=="None"):
         embed.add_field(name = "없음", value = "급식 혹은 급식 정보가 없음",inline=False)
     else:
         for i,j in meal_data[1]:
