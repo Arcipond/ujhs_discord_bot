@@ -1,0 +1,4 @@
+discord.py
+asyncio
+requests.py
+bs4.py
