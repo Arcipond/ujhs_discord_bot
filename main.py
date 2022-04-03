@@ -46,4 +46,4 @@ async def lotto(ctx):
 
 
 
-app.run(os.environ['OTU5ODE2NjgzMjY1MDczMjIz.YkhY8Q.3LrvYRfYPeTkb3P6s1szYAMvmn4'])
+app.run(os.environ['token'])
