@@ -1,7 +1,7 @@
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup as bs
-import re
+import re, os
 
 class mealfind:
     def __init__(self):
@@ -9,8 +9,9 @@ class mealfind:
 
     def find(self): #day[0-6] = [월-일]
         date = datetime.today().strftime("%Y%m%d")[2:]
-        url = "https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=3fb2d090f9c746e694d7a9097c466af2&ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7531047&MLSV_YMD="
-        url += str(date)
+        url = "https://open.neis.go.kr/hub/mealServiceDietInfo?&ATPT_OFCDC_SC_CODE=J10&SD_SCHUL_CODE=7531047&MLSV_YMD="
+        url += str(date)+"&KEY="
+        url += os.environ['meal_key']
 
         html = requests.get(url)
         soup = bs(html.text, 'html.parser')
