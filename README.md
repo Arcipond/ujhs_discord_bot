@@ -9,3 +9,5 @@ https://discord.com/api/oauth2/authorize?client_id=959816683265073223&permission
 
 - 급식(중식, 석식)
 .
+
+작동 X
